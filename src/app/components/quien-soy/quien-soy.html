@@ -1,0 +1,145 @@
+<section class="page-section bg-primary text-white mb-0" id="about">
+
+    <div class="container about-container">
+
+        <!-- TÍTULO -->
+
+        <h1 class="page-section-heading text-center text-uppercase text-white mb-5">
+            {{ title }} ❓
+        </h1>
+
+        <!-- PERFIL -->
+
+        <div class="row justify-content-center align-items-center text-center">
+
+            <div class="col-12 mb-4">
+
+                @if(usuario?.avatar_url){
+
+                    <img 
+                        [src]="usuario?.avatar_url"
+                        alt="Foto de perfil"
+                        class="profile-img"
+                    >
+
+                } @else {
+
+                    <p>Cargando perfil...</p>
+
+                }
+
+            </div>
+
+            <div class="col-lg-8 about-text">
+
+                <p class="lead">
+
+                    Hola, mi nombre es
+                    <strong>{{ usuario?.name }}</strong>.
+
+                </p>
+
+                <p class="lead">
+
+                    Vivo en
+                    <strong>{{ usuario?.location }}</strong>
+                    y actualmente me encuentro cursando el último año de la carrera
+                    Técnico Superior en Programación en la
+                    Universidad Tecnológica Nacional - Facultad Regional Avellaneda
+                    (UTN FRA).
+
+                </p>
+
+                <p class="lead">
+
+                    Actualmente cuento con
+                    <strong>{{ usuario?.public_repos }}</strong>
+                    repositorios públicos en GitHub.
+
+                </p>
+
+                <a 
+                    class="github-btn btn btn-light btn-lg mt-3"
+                    [href]="usuario?.html_url"
+                    target="_blank"
+                >
+
+                    <i class="bi bi-github"></i>
+
+                    Búscame en GitHub
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- SECCIÓN DEL JUEGO -->
+
+        <div class="game-section text-center mt-5">
+
+            <h1 class="text-uppercase mb-4">
+                {{ subtitle }} ⚔️
+            </h1>
+
+            <h2 class="mt-4">
+                Atrapa al Emoji 😈
+            </h2>
+
+            <p class="lead">
+
+                Actualmente estoy desarrollando un juego propio llamado
+                <strong>"Atrapa al Emoji"</strong>.
+
+            </p>
+
+            <p class="lead">
+
+                Elegí este juego porque me resulta nostálgico,
+                ya que fue uno de los primeros juegos que desarrollé
+                durante la carrera.
+
+            </p>
+
+            <h2 class="mt-5">
+                ¿Cómo se juega? ✍️
+            </h2>
+
+            <p class="lead">
+
+                El objetivo del juego es atrapar emojis que aparecerán
+                aleatoriamente en la pantalla.
+
+            </p>
+
+            <p class="lead">
+
+                Cada emoji tendrá un tiempo limitado antes de desaparecer.
+
+            </p>
+
+            <p class="lead">
+
+                Cuantos más emojis atrapes, más puntos obtendrás.
+
+            </p>
+
+            <p class="lead">
+
+                Si fallás al capturar un emoji, perderás vidas.
+                El juego termina cuando te quedás sin vidas.
+
+            </p>
+
+            <p class="lead">
+
+                ¡Jugá "Atrapa al Emoji" y convertite en uno de los
+                coronados de la tabla de puntuaciones!
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
