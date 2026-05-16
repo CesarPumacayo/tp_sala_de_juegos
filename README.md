@@ -1,3 +1,27 @@
+🎮 Sala de Juegos
+--
+TP #1
+Alumno: César Pumacayo
+Materia: Programación IV
+Carrera: Tecnicatura Universitaria en Programación — UTN Avellaneda
+Deploy: tp-sala-de-juegos-ivory.vercel.app
+
+🛠️ Tecnologías utilizadas
+
+Angular — Framework frontend
+TypeScript — Lenguaje principal
+Supabase — Backend, autenticación y base de datos
+Vercel — Hosting y deploy
+GitHub API — Datos del alumno en la página "Quién Soy"
+
+
+📦 Sprints
+-
+Sprint #1:
+--
+Creación del proyecto Angular con los componentes base: Login, Registro, Bienvenida/Home y Quién Soy. Navegación entre componentes mediante Angular Router. La página "Quién Soy" consume la API de GitHub para mostrar datos del alumno (nombre, foto de perfil, repositorios, ubicación). Favicon personalizado implementado. Deploy realizado en Vercel.
+
+
 # SalaJuegos
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
