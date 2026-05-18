@@ -1,13 +1,27 @@
 <h1>Sala de Juegos</h1>
-<nav class="nav-menu">
-  <ul>
-      <li><a routerLink="/ahorcado">Ahorcado</a></li>
-      <li><a routerLink="/mayor-menor">Mayor o Menor</a></li>
-      <li><a routerLink="/preguntados">Preguntados</a></li>
-      <li><a routerLink="/juego-propio">Juego propio</a></li>
-      <li><a routerLink="/quien-soy">Quién Soy</a></li>
-    </ul>
-    <button routerLink="/login">Login</button>
-    <button routerLink="/registro">Registro</button>
 
-</nav>
+<li><a routerLink="/quien-soy">Quién Soy</a></li>
+
+@if(authService.isAuthenticated()) {
+    <h2>
+        Bienvenido {{ authService.userEmail() }}
+    </h2>
+    <nav class="nav-menu">
+      <ul>
+          <li><a routerLink="/ahorcado">Ahorcado</a></li>
+          <li><a routerLink="/mayor-menor">Mayor o Menor</a></li>
+          <li><a routerLink="/preguntados">Preguntados</a></li>
+          <li><a routerLink="/juego-propio">Juego propio</a></li>
+        </ul>
+    </nav>
+  <div class="sidebar-footer">
+    <button (click)="authService.logout()">Cerrar sesión </button>
+  </div>
+  
+} @else {
+    <nav class="nav-menu">
+        <button routerLink="/login" routerLinkActive="activate" class="nav-item">Login</button>
+        <button routerLink="/registro" routerLinkActive="activate" class="nav-item">Registro</button>
+    </nav>
+
+}

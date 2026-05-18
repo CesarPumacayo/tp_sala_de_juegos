@@ -20,6 +20,9 @@ GitHub API — Datos del alumno en la página "Quién Soy"
 Sprint #1:
 --
 Creación del proyecto Angular con los componentes base: Login, Registro, Bienvenida/Home y Quién Soy. Navegación entre componentes mediante Angular Router. La página "Quién Soy" consume la API de GitHub para mostrar datos del alumno (nombre, foto de perfil, repositorios, ubicación). Favicon personalizado implementado. Deploy realizado en Vercel.
+--
+Sprint #2
+Implementación de autenticación con Supabase (login y registro con email y contraseña). El componente Home muestra contenido condicional según el estado de sesión del usuario. Registro de usuarios con guardado de datos personales en la base de datos. Tres botones de inicio de sesión rápido para facilitar las pruebas. Guards de ruta para proteger rutas privadas.
 
 
 # SalaJuegos

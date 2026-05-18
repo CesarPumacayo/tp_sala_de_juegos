@@ -1,3 +1,35 @@
-<p>login works!</p>
+<div class="login-container">
+    <form (ngSubmit)="onSubmit()">
+        @if(errorMensaje()){
+            <div class="alert">{{errorMensaje()}}</div>
+        }
+        <!--                       ▼ toma variable "email" y guarda contenido del input -->
+        <input type="email" [(ngModel)] = "email" name="email" placeholder="Email" required>
+        <input type="password"  [(ngModel)] = "password" name="password" placeholder="Password" required>
+        <!-- si es loading es true: se desactiva el botón y el contenido cambia a cargando ... y else Ingresar -->
+        <button type="submit" [disabled] = "loading()">
+            @if(loading()){
+                Cargando...
+            }@else{
+                Ingresar
+            }
+        </button>
+        <div class="quick-login">
 
-<button routerLink="../" >Ir atrás</button>
+            <h3>Acceso rápido</h3>
+
+            <button type="button" [disabled]="loading()" (click)="loginRapidoBeto()">
+                Pepe
+            </button>
+
+            <button type="button" [disabled]="loading()" (click)="loginRapidoTomas()">
+                Tomas
+            </button>
+
+            <button type="button" [disabled]="loading()" (click)="loginRapidoJorge()">
+                Jorge
+            </button>
+
+        </div>
+    </form>
+</div>

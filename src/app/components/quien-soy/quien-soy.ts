@@ -1,15 +1,17 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GithubService } from '../../services/github-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-quien-soy',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './quien-soy.html',
   styleUrl: './quien-soy.css'
 })
 export class QuienSoy implements OnInit {
 
   private githubService = inject(GithubService);
+  private cdr = inject(ChangeDetectorRef)
 
   usuario: any;
   title: string = 'Quién Soy';
@@ -19,6 +21,7 @@ export class QuienSoy implements OnInit {
 
     this.githubService.getUsuarioGithub().subscribe(data => {
       this.usuario = data;
+      this.cdr.detectChanges();
     });
 
   }
