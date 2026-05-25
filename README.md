@@ -1,86 +1,132 @@
 🎮 Sala de Juegos
 --
-TP #1
-Alumno: César Pumacayo
-Materia: Programación IV
-Carrera: Tecnicatura Universitaria en Programación — UTN Avellaneda
+
+TP #1  
+Alumno: César Pumacayo  
+Materia: Programación IV  
+Carrera: Tecnicatura Universitaria en Programación — UTN Avellaneda  
+
 Deploy: tp-sala-de-juegos-ivory.vercel.app
 
+---
+
 🛠️ Tecnologías utilizadas
-
-Angular — Framework frontend
-TypeScript — Lenguaje principal
-Supabase — Backend, autenticación y base de datos
-Vercel — Hosting y deploy
-GitHub API — Datos del alumno en la página "Quién Soy"
-
-
-📦 Sprints
--
-Sprint #1:
 --
-Creación del proyecto Angular con los componentes base: Login, Registro, Bienvenida/Home y Quién Soy. Navegación entre componentes mediante Angular Router. La página "Quién Soy" consume la API de GitHub para mostrar datos del alumno (nombre, foto de perfil, repositorios, ubicación). Favicon personalizado implementado. Deploy realizado en Vercel.
---
-Sprint #2
-Implementación de autenticación con Supabase (login y registro con email y contraseña). El componente Home muestra contenido condicional según el estado de sesión del usuario. Registro de usuarios con guardado de datos personales en la base de datos. Tres botones de inicio de sesión rápido para facilitar las pruebas. Guards de ruta para proteger rutas privadas.
 
+- Angular — Framework frontend
+- TypeScript — Lenguaje principal
+- Supabase — Backend, autenticación y base de datos
+- Vercel — Hosting y deploy
+- GitHub API — Datos del alumno en la página "Quién Soy"
+- Bootstrap — Diseño y estilos visuales
+
+---
+
+# Sprints📦 (1-4)
+
+## Sprint #1
+
+Creación del proyecto Angular utilizando componentes standalone y Angular Router para la navegación entre vistas.
+
+Se desarrollaron los componentes principales:
+- Login
+- Registro
+- Bienvenida / Home
+- Quién Soy
+
+La página "Quién Soy" consume la API pública de GitHub para mostrar:
+- Nombre del alumno
+- Imagen de perfil
+- Ubicación
+- Cantidad de repositorios públicos
+- Perfil de GitHub
+
+También se agregó:
+- Explicación del juego propio
+- Diseño responsive
+- Favicon personalizado
+- Deploy en Vercel
+
+---
+
+## Sprint #2
+
+
+
+Implementación completa del sistema de autenticación utilizando Supabase Authentication.
+
+Se desarrollaron las funcionalidades de:
+- Inicio de sesión mediante email y contraseña
+- Registro de usuarios
+- Persistencia de sesión
+- Logout
+
+Ejemplo iniciar sesion:
+~~~ 
+"email":tomas@gmail.com 
+"contraseña":"tomas123"
+~~~ 
+Además:
+- El Home muestra contenido dinámico dependiendo si el usuario está logueado o no.
+- Se agregaron Guards para proteger rutas privadas.
+- Se implementaron botones de acceso rápido para pruebas.
+- Los datos personales del usuario se almacenan en Supabase Database.
+- La contraseña NO se guarda en la base de datos personalizada, únicamente en Supabase Authentication.
+
+Datos almacenados:
+- Nombre
+- Apellido
+- Edad
+- Correo electrónico
+
+También se implementó:
+- Manejo de errores
+- Mensajes dinámicos
+- Signals y Computed de Angular para reactividad
+
+---
+
+## Sprint #3
+
+Paquetes instalados:
+~~~ 
+npm install sweetalert2 
+npm install bootstrap
+npm install bootstrap-icons
+~~~ 
+
+Desarrollo del juego Ahorcado, mayor a menor y chat de usuarios utilizando Angular Signals y componentes standalone.
+
+El juego permite seleccionar letras mediante botones interactivos del abecedario, sin utilizar el teclado, cumpliendo con los requisitos solicitados.
+
+Se implementó lógica reactiva para:
+- Mostrar el progreso de la palabra oculta
+- Detectar letras correctas e incorrectas
+- Contabilizar errores
+- Detectar automáticamente victoria o derrota
+- Reiniciar partidas
+
+Además, al finalizar cada partida se guardan automáticamente en Supabase:
+- Usuario que jugó
+- Palabra utilizada
+- Cantidad de errores cometidos
+- Cantidad de letras seleccionadas
+- Tiempo total de la partida
+- Resultado final de la partida (ganó o perdió)
+
+También se incorporaron:
+- Estilos personalizados
+- Experiencia interactiva
+- Diseño responsive
+- Mejoras visuales para la jugabilidad
+
+---
 
 # SalaJuegos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+This project was generated using Angular CLI version 21.2.7.
 
 ## Development server
 
-To start a local development server, run:
-
 ```bash
 ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

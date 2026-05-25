@@ -1,27 +1,66 @@
-<h1>Sala de Juegos</h1>
+<div class="home-container">
 
-<li><a routerLink="/quien-soy">Quién Soy</a></li>
+    <h1 class="title">Sala de Juegos</h1>
 
-@if(authService.isAuthenticated()) {
-    <h2>
-        Bienvenido {{ authService.userEmail() }}
-    </h2>
-    <nav class="nav-menu">
-      <ul>
-          <li><a routerLink="/ahorcado">Ahorcado</a></li>
-          <li><a routerLink="/mayor-menor">Mayor o Menor</a></li>
-          <li><a routerLink="/preguntados">Preguntados</a></li>
-          <li><a routerLink="/juego-propio">Juego propio</a></li>
-        </ul>
-    </nav>
-  <div class="sidebar-footer">
-    <button (click)="authService.logout()">Cerrar sesión </button>
-  </div>
-  
-} @else {
-    <nav class="nav-menu">
-        <button routerLink="/login" routerLinkActive="activate" class="nav-item">Login</button>
-        <button routerLink="/registro" routerLinkActive="activate" class="nav-item">Registro</button>
-    </nav>
+    <div class="quien-soy-link">
+        <a routerLink="/quien-soy" class="btn btn-outline-light">
+            Quién Soy
+        </a>
+    </div>
 
-}
+    @if(authService.isAuthenticated()) {
+
+        <h2 class="welcome-text">
+            Bienvenido {{ authService.userEmail() }}
+        </h2>
+
+        <nav class="nav-menu">
+            <ul>
+
+                <li><a routerLink="/sala-de-chat" class="btn btn-secondary game-btn">Sala de chat</a></li>
+                <li><a routerLink="/ahorcado" class="btn btn-primary game-btn">Ahorcado</a></li>
+                <li><a routerLink="/mayor-menor" class="btn btn-success game-btn">Mayor o Menor</a></li>
+                <li><a routerLink="/preguntados" class="btn btn-warning game-btn">Preguntados</a></li>
+                <li><a routerLink="/juego-propio" class="btn btn-danger game-btn">Juego propio</a></li>
+
+
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button 
+                class="btn btn-dark logout-btn"
+                (click)="authService.logout()">
+
+                Cerrar sesión
+
+            </button>
+        </div>
+
+    } @else {
+
+        <nav class="login-menu">
+
+            <button 
+                routerLink="/login"
+                routerLinkActive="active"
+                class="btn btn-primary nav-item">
+
+                Login
+
+            </button>
+
+            <button 
+                routerLink="/registro"
+                routerLinkActive="active"
+                class="btn btn-success nav-item">
+
+                Registro
+
+            </button>
+
+        </nav>
+
+    }
+
+</div>

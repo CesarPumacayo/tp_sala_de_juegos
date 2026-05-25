@@ -1,24 +1,65 @@
+<nav>
+    <button routerLink="/bienvenida">Ir atrás</button>
+</nav>
+
 <div class="login-container">
-    <form (ngSubmit)="onSubmit()">
-        @if(errorMensaje()){
-            <div class="alert">{{errorMensaje()}}</div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <input  type="email" formControlName="email" placeholder="Email">
+
+        @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched){
+            <small class="alert">
+
+                @if(loginForm.get('email')?.errors?.['required']){
+                    El email es obligatorio
+                }
+
+                @if(loginForm.get('email')?.errors?.['email']){
+                    El formato es inválido
+                }
+
+            </small>
         }
-        <!--                       ▼ toma variable "email" y guarda contenido del input -->
-        <input type="email" [(ngModel)] = "email" name="email" placeholder="Email" required>
-        <input type="password"  [(ngModel)] = "password" name="password" placeholder="Password" required>
-        <!-- si es loading es true: se desactiva el botón y el contenido cambia a cargando ... y else Ingresar -->
-        <button type="submit" [disabled] = "loading()">
+
+        <input  type="password" formControlName="password" placeholder="Password">
+
+        @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+            <small class="alert">
+
+                @if(loginForm.get('password')?.errors?.['required'])
+                {
+                    La contraseña es obligatoria
+                }
+                @if(loginForm.get('password')?.errors?.['minlength'])
+                {
+                    El mínimo de caracteres es 6
+                }
+
+            </small>
+        }
+
+        <!-- ERROR -->
+        @if(errorMensaje()){
+            <small class="alert">{{ errorMensaje() }}</small>
+        }
+
+        <!-- BOTON LOGIN -->
+        <button type="submit" [disabled]="loading()">
+
             @if(loading()){
                 Cargando...
             }@else{
                 Ingresar
             }
+
         </button>
+
         <div class="quick-login">
 
             <h3>Acceso rápido</h3>
 
-            <button type="button" [disabled]="loading()" (click)="loginRapidoBeto()">
+            <button type="button" [disabled]="loading()" (click)="loginRapidoPepe()">
                 Pepe
             </button>
 
@@ -31,5 +72,7 @@
             </button>
 
         </div>
+
     </form>
+
 </div>

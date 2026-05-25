@@ -1,0 +1,50 @@
+<nav>
+    <button routerLink="/bienvenida">Ir atrás</button>
+</nav>
+<div class="ahorcado-container">
+
+    <h1>Ahorcado</h1>
+
+    <!-- PALABRA -->
+    <div class="palabra">
+        {{ palabraMostrada() }}
+    </div>
+
+    <p>Errores: {{ errores() }} / {{ maxErrores }}</p>
+
+    <!-- LETRAS USADAS -->
+    <div class="letras-usadas">
+        <p>Letras usadas: {{ letrasUsadas().join(', ') }}</p>
+    </div>
+
+    <!-- BOTONES DE LETRAS -->
+    @if(!juegoTerminado()) {
+        <div class="letras-botones">
+            @for(letra of letras; track letra) {
+                <button
+                    (click)="elegirLetra(letra)"
+                    [disabled]="letrasUsadas().includes(letra)"
+                    [class.usada]="letrasUsadas().includes(letra)"
+                    [class.correcta]="letrasUsadas().includes(letra) && palabra().includes(letra)"
+                    [class.incorrecta]="letrasUsadas().includes(letra) && !palabra().includes(letra)"
+                >
+                    {{ letra }}
+                </button>
+            }
+        </div>
+    }
+
+    <!-- RESULTADO -->
+    @if(juegoTerminado()) {
+        <div class="resultado">
+            @if(gano()) {
+                <h2>🎉 ¡Ganaste!</h2>
+            } @else {
+                <h2>💀 ¡Perdiste!</h2>
+                <p>La palabra era: <strong>{{ palabra() }}</strong></p>
+            }
+            <button (click)="nuevaPartida()">Jugar de nuevo</button>
+        </div>
+    }
+
+</div>
