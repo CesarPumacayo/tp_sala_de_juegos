@@ -9,6 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './bienvenida.css',
 })
 export class Bienvenida {
-    authService = inject(AuthService); 
+  authService = inject(AuthService); 
 
 }

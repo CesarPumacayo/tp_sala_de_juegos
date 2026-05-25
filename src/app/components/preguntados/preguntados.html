@@ -1,0 +1,46 @@
+<nav>
+    <button routerLink="/bienvenida">Ir Atrás</button>
+</nav>
+<div class="preguntados-container">
+
+    <h1>Preguntados</h1>
+
+    @if(preguntas().length === 0) {
+        <p>Cargando preguntas...</p>
+    }
+
+    @if(preguntas().length > 0 && !juegoTerminado()) {
+
+        <div class="progreso">
+            <p>Pregunta {{ indice() + 1 }} / {{ preguntas().length }}</p>
+            <p>✅ {{ aciertos() }} ❌ {{ errores() }}</p>
+        </div>
+
+        <div class="pregunta">
+            <h2>{{ preguntaActual().question }}</h2>
+        </div>
+
+        <div class="opciones">
+            @for(opcion of preguntaActual().opciones; track opcion) {
+                <button
+                    (click)="responder(opcion)"
+                    [disabled]="!!respuestaSeleccionada()"
+                    [class.correcta]="esCorrecta(opcion)"
+                    [class.incorrecta]="esIncorrecta(opcion)"
+                >
+                    {{ opcion }}
+                </button>
+            }
+        </div>
+
+    }
+
+    @if(juegoTerminado()) {
+        <div class="resultado">
+            <h2>🏁 ¡Juego terminado!</h2>
+            <p>Aciertos: <strong>{{ aciertos() }}</strong></p>
+            <p>Errores: <strong>{{ errores() }}</strong></p>
+            <button (click)="reiniciarJuego()">Jugar de nuevo</button>
+        </div>
+    }
+</div>
