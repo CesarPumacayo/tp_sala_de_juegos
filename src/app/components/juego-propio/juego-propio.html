@@ -1,0 +1,36 @@
+<nav>
+    <button routerLink="/bienvenida">Ir atrás</button>
+</nav>
+<div class="juego-container">
+
+    <h1>😈 Atrapa al Emoji</h1>
+
+    <div class="stats">
+        <span>⭐ Puntos: {{ puntos() }}</span>
+        <span>⏳ Tiempo: {{ reloj() }}</span>
+    </div>
+
+    @if(!juegoTerminado()) {
+        <div class="area-juego">
+            @for(emoji of emojis(); track emoji.id) {
+                <button
+                    class="emoji-btn"
+                    (click)="atrapar(emoji.id)"
+                    [style.left.%]="emoji.x"
+                    [style.top.%]="emoji.y"
+                >
+                    {{ emoji.simbolo }}
+                </button>
+            }
+        </div>
+    }
+
+    @if(juegoTerminado()) {
+        <div class="resultado">
+            <h2>💀 ¡Juego terminado!</h2>
+            <p>Puntos: <strong>{{ puntos() }}</strong></p>
+            <button (click)="iniciarJuego()">Jugar de nuevo</button>
+        </div>
+    }
+
+</div>

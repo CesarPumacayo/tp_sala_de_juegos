@@ -58,34 +58,40 @@ export class Ahorcado implements OnInit {
     }
   }
 
-async guardarResultado() {
+  async guardarResultado() {
 
-  const tiempoFinal = Math.floor(
-    (Date.now() - this.tiempoInicio) / 1000
-  );
+    const tiempoFinal = Math.floor(
+      (Date.now() - this.tiempoInicio) / 1000
+    );
 
-  const userEmail = this.auth.user()?.email ?? 'Invitado';
+    const usuario = this.auth.user();
 
-  const { error } = await this.supabase
-  .getClient()
-    .from('resultados_ahorcado')
-    .insert({
-      user_email: userEmail,
-      palabra: this.palabra(),
-      errores: this.errores(),
-      letras_usadas: this.letrasUsadas().length,
-      tiempo_segundos: tiempoFinal,
-      gano: this.gano()
-    });
+    const puntaje =
+      (this.gano() ? 100 : 0) -
+      (this.errores() * 10);
 
-  if(error) {
+    const { error } = await this.supabase
+      .getClient()
+      .from('resultados_ahorcado')
+      .insert({
+        usuario_id: usuario?.id,
+        user_email: usuario?.email,
+        palabra: this.palabra(),
+        errores: this.errores(),
+        letras_usadas: this.letrasUsadas().length,
+        tiempo_segundos: tiempoFinal,
+        gano: this.gano(),
+        puntaje: puntaje
+      });
 
-    console.log(error);
+    if(error) {
 
-  } else {
+      console.log(error);
 
-    console.log('Resultado guardado');
+    } else {
 
+      console.log('Resultado guardado');
+
+    }
   }
-}
 }

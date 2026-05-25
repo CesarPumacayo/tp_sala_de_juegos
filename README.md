@@ -122,6 +122,48 @@ También se incorporaron:
 
 ---
 
+## Sprint #4
+Sprint #4
+
+Implementación de la sección de Resultados globales de la Sala de Juegos.
+
+Se creó una nueva página llamada:
+~~~ 
+ng g  c components/Resultados
+~~~ 
+En esta sección se muestran tablas dinámicas conectadas a Supabase con los resultados almacenados de cada juego:
+
+- Ahorcado
+- Mayor o Menor 🃏
+- Atrapa al Emoji 😈
+- Preguntados ❓
+
+Cada tabla muestra:
+
+- Usuario que jugó
+- Puntaje / desempeño
+- Errores o aciertos
+- Tiempo de partida
+- Fecha del resultado
+
+Se implementaron consultas ordenadas para mostrar el ranking desde el mejor desempeño al peor utilizando:
+
+- .order()
+- Signals de Angular
+- Consultas async a Supabase
+
+Juegos :
+
+- Ahorcado → mayor puntaje y menor cantidad de errores
+- Mayor o Menor → mayor cantidad de aciertos
+- Preguntados → mayor cantidad de respuestas correctas
+- Juego propio → mayor cantidad de puntos
+
+También se implementaron:
+
+Guards de rutas
+Navegación protegida, Componentes standalone, Signals y Computed para manejo reactivo del estado , Integración completa entre frontend y backend con Angular + Supabase
+
 # SalaJuegos
 
 This project was generated using Angular CLI version 21.2.7.
