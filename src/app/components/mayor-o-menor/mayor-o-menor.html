@@ -1,0 +1,65 @@
+<nav>
+    <button routerLink="/bienvenida">Ir atrás</button>
+</nav>
+
+<div class="juego-container">
+
+    <h1>Mayor o Menor</h1>
+
+    <div class="puntaje">
+        <span>✅ Aciertos: {{ aciertos() }}</span>
+        <span>❌ Errores: {{ errores() }}</span>
+    </div>
+
+    @if(!juegoTerminado()) {
+        <p>⏱️ Tiempo: {{ tiempoTranscurrido() }}s</p>
+
+        <div class="carta-container">
+            <!-- CARTA ACTUAL -->
+            <div class="carta">
+                <h2>{{ cartaActual()?.nombre }}</h2>
+                <p>{{ cartaActual()?.palo }}</p>
+                <p class="valor">{{ cartaActual()?.valor }}</p>
+            </div>
+
+            <!-- CARTA SIGUIENTE -->
+            @if(cartaSiguiente()) {
+                <div class="carta siguiente">
+                    <h2>{{ cartaSiguiente()?.nombre }}</h2>
+                    <p>{{ cartaSiguiente()?.palo }}</p>
+                    <p class="valor">{{ cartaSiguiente()?.valor }}</p>
+                </div>
+            } @else {
+                <div class="carta siguiente oculta">
+                    <p>?</p>
+                </div>
+            }
+
+        </div>
+
+        @if(mensajeResultado()) {
+            <p class="mensaje">{{ mensajeResultado() }}</p>
+        }
+
+        <div class="botones">
+            <button (click)="elegir('mayor')" [disabled]="!!cartaSiguiente()">
+                ⬆️ Mayor
+            </button>
+            <button (click)="elegir('menor')" [disabled]="!!cartaSiguiente()">
+                ⬇️ Menor
+            </button>
+        </div>
+
+    } @else {
+
+        <div class="resultado">
+            <h2>🏁 ¡Juego terminado!</h2>
+            <p>Aciertos: <strong>{{ aciertos() }}</strong></p>
+            <p>Errores: <strong>{{ errores() }}</strong></p>
+            <p>Tiempo: <strong>{{ tiempoFinal() }} segundos</strong></p>
+            <button (click)="iniciarJuego()">Jugar de nuevo</button>
+        </div>
+
+    }
+
+</div>

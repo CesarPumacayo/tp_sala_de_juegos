@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-
+import { Usuario } from '../models/user.models';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +12,7 @@ export class GithubService {
   
 
   getUsuarioGithub() {
-    return this.http.get(this.apiUrl);
+     return this.http.get<Usuario>(this.apiUrl);
   }
 }
 
