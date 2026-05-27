@@ -30,16 +30,11 @@ export class Preguntados implements OnInit {
 
   // Llama a la API y por cada pregunta mezcla las opciones con mezclar() para que la correcta no esté siempre en el mismo lugar
   ngOnInit(): void {
-    this.preguntadoService.getPreguntados().subscribe(data => {
-      const preguntas = data.results.map((p: any) => ({
-        ...p, // spread operator: copiá todas las propiedades de p (question, correct_answer, incorrect_answer, opciones(lo creamos nosotros))
-        opciones: this.mezclar([p.correct_answer, ...p.incorrect_answers])
-      }));
-      this.preguntas.set(preguntas);
-      this.tiempoInicio = Date.now();
-    });
+      this.preguntadoService.getPreguntados().subscribe(preguntas => {
+          this.preguntas.set(preguntas);
+          this.tiempoInicio = Date.now();
+      });
   }
-
   mezclar(arr: string[]): string[] {
     return arr.sort(() => Math.random() - 0.5);
   }
@@ -96,25 +91,14 @@ export class Preguntados implements OnInit {
   }
 
   reiniciarJuego() {
-  this.indice.set(0);
-  this.aciertos.set(0);
-  this.errores.set(0);
-  this.juegoTerminado.set(false);
-  this.respuestaSeleccionada.set(null);
-
-  this.preguntadoService.getPreguntados().subscribe(data => {
-
-    const preguntas = data.results.map((p: any) => ({
-      ...p,
-      opciones: this.mezclar([
-        p.correct_answer,
-        ...p.incorrect_answers
-      ])
-    }));
-
-    this.preguntas.set(preguntas);
-    this.tiempoInicio = Date.now();
-
-  });
-}
+    this.indice.set(0);
+    this.aciertos.set(0);
+    this.errores.set(0);
+    this.juegoTerminado.set(false);
+    this.respuestaSeleccionada.set(null);
+    this.preguntadoService.getPreguntados().subscribe(preguntas => {
+        this.preguntas.set(preguntas);
+        this.tiempoInicio = Date.now();
+    });
+  }
 }

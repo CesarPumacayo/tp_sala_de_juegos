@@ -2,18 +2,27 @@
     <button routerLink="/bienvenida">Ir atrás</button>
 </nav>
 
-<div class="chat-container">
-  <div class="messages">
-    @for (msg of chatService.mensajes(); track msg.id) {
-      <div class="message-item" [class.propio]="msg.user_email === authService.userEmail()">
-        <span class="time">{{msg.created_at | date:'HH:mm'}} </span>
-        <span class="user-tag">{{ msg.user_email }}: </span>
-        <span class="content">{{ msg.contenido }}  </span>
-      </div>
-    }
-  </div>
-  <div class="input-area">
-    <input [(ngModel)]="nuevoMensaje" (keyup.enter)="enviarMensaje()" placeholder="Escribe un mensaje..." />
-    <button (click)="enviarMensaje()">Enviar</button>
-  </div>
+<div class="chat-wrapper">
+    <div class="chat-header">💬 Sala de Chat</div>
+
+    <div class="messages" #messagesContainer>
+        @for (msg of chatService.mensajes(); track msg.id) {
+            <div class="message-item" [class.propio]="msg.user_email === authService.userEmail()">
+                <span class="user-tag" [style.color]="getColorUsuario(msg.user_email)">
+                    {{ msg.user_email }}
+                </span>
+                <span class="content">{{ msg.contenido }}</span>
+                <span class="time">{{ msg.created_at | date:'HH:mm' }}</span>
+            </div>
+        }
+    </div>
+
+    <div class="input-area">
+        <input 
+            [(ngModel)]="nuevoMensaje" 
+            (keyup.enter)="enviarMensaje()" 
+            placeholder="Escribe un mensaje..." 
+        />
+        <button (click)="enviarMensaje()">Enviar</button>
+    </div>
 </div>

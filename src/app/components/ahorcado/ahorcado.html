@@ -5,25 +5,24 @@
 
     <h1>Ahorcado</h1>
 
-    <!-- PALABRA -->
+    <p>🔥 Racha actual: {{ racha() }}</p>
+
     <div class="palabra">
         {{ palabraMostrada() }}
     </div>
 
     <p>Errores: {{ errores() }} / {{ maxErrores }}</p>
 
-    <!-- LETRAS USADAS -->
     <div class="letras-usadas">
         <p>Letras usadas: {{ letrasUsadas().join(', ') }}</p>
     </div>
 
-    <!-- BOTONES DE LETRAS -->
-    @if(!juegoTerminado()) {
+    @if(!juegoFinalizado()) {
         <div class="letras-botones">
             @for(letra of letras; track letra) {
                 <button
                     (click)="elegirLetra(letra)"
-                    [disabled]="letrasUsadas().includes(letra)"
+                    [disabled]="letrasUsadas().includes(letra) || adivinoRonda()"
                     [class.usada]="letrasUsadas().includes(letra)"
                     [class.correcta]="letrasUsadas().includes(letra) && palabra().includes(letra)"
                     [class.incorrecta]="letrasUsadas().includes(letra) && !palabra().includes(letra)"
@@ -32,18 +31,18 @@
                 </button>
             }
         </div>
+
+        @if(adivinoRonda()) {
+            <p>🎉 ¡Adivinaste! Cargando nueva palabra...</p>
+        }
     }
 
-    <!-- RESULTADO -->
-    @if(juegoTerminado()) {
+    @if(juegoFinalizado()) {
         <div class="resultado">
-            @if(gano()) {
-                <h2>🎉 ¡Ganaste!</h2>
-            } @else {
-                <h2>💀 ¡Perdiste!</h2>
-                <p>La palabra era: <strong>{{ palabra() }}</strong></p>
-            }
-            <button (click)="nuevaPartida()">Jugar de nuevo</button>
+            <h2>💀 ¡Perdiste!</h2>
+            <p>La palabra era: <strong>{{ palabra() }}</strong></p>
+            <p>Racha final: <strong>{{ racha() }}</strong></p>
+            <button (click)="reiniciar()">Jugar de nuevo</button>        
         </div>
     }
 

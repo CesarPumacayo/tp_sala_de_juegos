@@ -1,67 +1,71 @@
-<div class="home-container">
-
-    <h1 class="title">Sala de Juegos</h1>
-
-    <div class="quien-soy-link">
-        <a routerLink="/quien-soy" class="btn btn-outline-light">
-            Quién Soy
-        </a>
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark px-4">
+    <a class="navbar-brand fw-bold" routerLink="/bienvenida">🎮 Sala de Juegos</a>
+    <div class="d-flex align-items-center gap-3">
+        <a routerLink="/quien-soy" class="btn btn-outline-light btn-sm">Quién Soy</a>
+        @if(authService.isAdmin()) {
+            <a routerLink="/encuesta-resultados" class="btn btn-outline-info btn-sm">📊 Encuestas</a>
+        }
+        @if(authService.isAuthenticated()) {
+            <a routerLink="/resultados" class="btn btn-outline-warning btn-sm">🏆 Resultados</a>
+            <span class="text-light">{{ authService.userEmail() }}</span>
+            <button class="btn btn-danger btn-sm" (click)="authService.logout()">Cerrar sesión</button>
+        } @else {
+            <a routerLink="/login" class="btn btn-primary btn-sm">Login</a>
+            <a routerLink="/registro" class="btn btn-success btn-sm">Registro</a>
+        }
     </div>
+</nav>
+
+<!-- HERO -->
+<div class="home-container">
+    <h1 class="title">Sala de Juegos</h1>
 
     @if(authService.isAuthenticated()) {
 
-        <h2 class="welcome-text">
-            Bienvenido {{ authService.userEmail() }}
-        </h2>
+        <h2 class="welcome-text">Bienvenido, {{ authService.userEmail() }} 👋</h2>
 
-        <nav class="nav-menu">
-            <ul>
+        <div class="games-grid">
 
-                <li><a routerLink="/sala-de-chat" class="btn btn-secondary game-btn">Sala de chat</a></li>
-                <li><a routerLink="/ahorcado" class="btn btn-primary game-btn">Ahorcado</a></li>
-                <li><a routerLink="/mayor-menor" class="btn btn-success game-btn">Mayor o Menor</a></li>
-                <li><a routerLink="/preguntados" class="btn btn-warning game-btn">Preguntados</a></li>
-                <li><a routerLink="/juego-propio" class="btn btn-danger game-btn">Juego propio</a></li>
-                <li><a routerLink="/resultados" class="btn btn-danger game-btn">Resultados</a></li>
+            <a routerLink="/sala-de-chat" class="game-card chat">
+                <span class="game-icon">💬</span>
+                <span class="game-name">Sala de Chat</span>
+            </a>
 
+            <a routerLink="/ahorcado" class="game-card ahorcado">
+                <span class="game-icon">🎯</span>
+                <span class="game-name">Ahorcado</span>
+            </a>
 
-            </ul>
-        </nav>
+            <a routerLink="/mayor-menor" class="game-card mayor">
+                <span class="game-icon">🃏</span>
+                <span class="game-name">Mayor o Menor</span>
+            </a>
 
-        <div class="sidebar-footer">
-            <button 
-                class="btn btn-dark logout-btn"
-                (click)="authService.logout()">
+            <a routerLink="/preguntados" class="game-card preguntados">
+                <span class="game-icon">❓</span>
+                <span class="game-name">Preguntados</span>
+            </a>
 
-                Cerrar sesión
+            <a routerLink="/juego-propio" class="game-card emoji">
+                <span class="game-icon">😈</span>
+                <span class="game-name">Atrapa al Emoji</span>
+            </a>
 
-            </button>
+            <a routerLink="/encuesta" class="game-card encuesta">
+                <span class="game-icon">📋</span>
+                <span class="game-name">Encuesta</span>
+            </a>
         </div>
 
     } @else {
 
-        <nav class="login-menu">
+        <p class="lead text-white-50">Iniciá sesión para jugar</p>
 
-            <button 
-                routerLink="/login"
-                routerLinkActive="active"
-                class="btn btn-primary nav-item">
-
-                Login
-
-            </button>
-
-            <button 
-                routerLink="/registro"
-                routerLinkActive="active"
-                class="btn btn-success nav-item">
-
-                Registro
-
-            </button>
-
-        </nav>
+        <div class="d-flex gap-3 mt-3">
+            <a routerLink="/login" class="btn btn-primary btn-lg">Login</a>
+            <a routerLink="/registro" class="btn btn-success btn-lg">Registro</a>
+        </div>
 
     }
-
 </div>

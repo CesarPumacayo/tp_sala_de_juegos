@@ -1,0 +1,128 @@
+<nav>
+    <button routerLink="/bienvenida">Ir atrás</button>
+</nav>
+
+<div class="encuesta-container">
+    <h1>📋 Encuesta</h1>
+
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+
+        <!-- DATOS PERSONALES -->
+        <div class="seccion">
+            <h2>Datos personales</h2>
+
+            <div class="campo">
+                <label>Nombre</label>
+                <input type="text" formControlName="nombre" placeholder="Ingresá tu nombre">
+                @if(nombre.invalid && nombre.touched) {
+                    <small class="error">El nombre es requerido (mínimo 2 caracteres)</small>
+                }
+            </div>
+
+            <div class="campo">
+                <label>Apellido</label>
+                <input type="text" formControlName="apellido" placeholder="Ingresá tu apellido">
+                @if(apellido.invalid && apellido.touched) {
+                    <small class="error">El apellido es requerido (mínimo 2 caracteres)</small>
+                }
+            </div>
+
+            <div class="campo">
+                <label>Edad</label>
+                <input type="number" formControlName="edad" placeholder="Ingresá tu edad">
+                @if(edad.invalid && edad.touched) {
+                    <small class="error">La edad debe ser entre 18 y 99 años</small>
+                }
+            </div>
+
+            <div class="campo">
+                <label>Teléfono</label>
+                <input type="text" formControlName="telefono" placeholder="Solo números, máximo 10 dígitos">
+                @if(telefono.invalid && telefono.touched) {
+                    <small class="error">El teléfono debe tener solo números y máximo 10 dígitos</small>
+                }
+            </div>
+        </div>
+
+        <!-- PREGUNTAS -->
+        <div class="seccion">
+            <h2>Preguntas</h2>
+
+            <!-- PREGUNTA 1 - textbox -->
+            <div class="campo">
+                <label>1. ¿Qué juego te gustó más?</label>
+                <input type="text" formControlName="pregunta1" placeholder="Escribí tu respuesta">
+                @if(pregunta1.invalid && pregunta1.touched) {
+                    <small class="error">Este campo es requerido</small>
+                }
+            </div>
+
+            <!-- PREGUNTA 2 - radiobutton -->
+            <div class="campo">
+                <label>2. ¿Con qué frecuencia jugás videojuegos?</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" formControlName="pregunta2" value="Todos los días"> Todos los días
+                    </label>
+                    <label>
+                        <input type="radio" formControlName="pregunta2" value="Algunas veces por semana"> Algunas veces por semana
+                    </label>
+                    <label>
+                        <input type="radio" formControlName="pregunta2" value="Raramente"> Raramente
+                    </label>
+                    <label>
+                        <input type="radio" formControlName="pregunta2" value="Nunca"> Nunca
+                    </label>
+                </div>
+                @if(pregunta2.invalid && pregunta2.touched) {
+                    <small class="error">Seleccioná una opción</small>
+                }
+            </div>
+
+            <!-- PREGUNTA 3 - select -->
+            <div class="campo">
+                <label>3. ¿Cómo calificarías la aplicación?</label>
+                <select formControlName="pregunta3">
+                    <option value="">Seleccioná una opción</option>
+                    <option value="Excelente">⭐⭐⭐⭐⭐ Excelente</option>
+                    <option value="Muy buena">⭐⭐⭐⭐ Muy buena</option>
+                    <option value="Buena">⭐⭐⭐ Buena</option>
+                    <option value="Regular">⭐⭐ Regular</option>
+                    <option value="Mala">⭐ Mala</option>
+                </select>
+                @if(pregunta3.invalid && pregunta3.touched) {
+                    <small class="error">Seleccioná una opción</small>
+                }
+            </div>
+
+            <!-- PREGUNTA 4 - checkbox -->
+            <div class="campo">
+                <label>4. ¿Qué géneros de juegos te gustan? (podés elegir varios)</label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" formControlName="pregunta4_accion"> Acción
+                    </label>
+                    <label>
+                        <input type="checkbox" formControlName="pregunta4_puzzle"> Puzzle
+                    </label>
+                    <label>
+                        <input type="checkbox" formControlName="pregunta4_estrategia"> Estrategia
+                    </label>
+                    <label>
+                        <input type="checkbox" formControlName="pregunta4_deportes"> Deportes
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <button type="submit" [disabled]="loading()">
+            @if(loading()) {
+                Enviando...
+            } @else {
+                Enviar encuesta
+            }
+        </button>
+
+    </form>
+</div>

@@ -10,11 +10,6 @@ export class ChatService {
     private get supabase() { return this.supabaseService.getClient(); }
     public mensajes = signal<Mensaje[]>([]);
 
-    constructor() {
-        this.cargarMensajesIniciales();
-        this.escucharMensajesEnTiempoReal();
-    }
-
     async cargarMensajesIniciales() {
         const { data } = await this.supabase
             .from('mensajes')
@@ -29,7 +24,7 @@ export class ChatService {
             .channel('sala-publica')
             .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mensajes' }, 
             async () => {
-                this.cargarMensajesIniciales(); 
+                await this.cargarMensajesIniciales(); 
             })
             .subscribe();
     }
