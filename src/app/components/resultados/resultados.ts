@@ -2,10 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupabaseService } from '../../services/supabase';
 import { RouterLink } from '@angular/router';
+import { FiltroPipe } from '../../pipes/filtro.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-resultados',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FiltroPipe, FormsModule],
   templateUrl: './resultados.html',
   styleUrl: './resultados.css',
 })
@@ -17,7 +19,8 @@ export class Resultados implements OnInit {
   resultadosMayorMenor = signal<any[]>([]);
   resultadosPreguntados = signal<any[]>([]);
   resultadosJuegoPropio = signal<any[]>([]);
-
+  filtroEmail = '';
+  tabActiva = signal<'ahorcado' | 'mayor-menor' | 'preguntados' | 'juego-propio'>('ahorcado');
   async ngOnInit() {
 
     await this.cargarAhorcado();

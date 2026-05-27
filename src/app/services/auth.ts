@@ -14,8 +14,8 @@ export class AuthService {
     user = signal<User | null>(null);
     isAuthenticated = computed(() => this.user() !== null);
     userEmail = computed(() => this.user()?.email ?? 'Invitado');
+    isAdmin = signal(false);
 
-    // usuarios = signal<UsuarioDB[]>([]);
     
 
     constructor(){
@@ -29,7 +29,17 @@ export class AuthService {
                 id: session.user.id,
                 email: session.user.email ?? ''
             });
+            await this.cargarIsAdmin(session.user.id);
         }
+    }
+
+    async cargarIsAdmin(userId: string) {
+        const { data } = await this.supabase.getClient()
+            .from('usuarios')
+            .select('is_admin')
+            .eq('id', userId)
+            .single();
+        this.isAdmin.set(data?.is_admin ?? false);
     }
 
     async logout(): Promise<void> {
@@ -59,6 +69,7 @@ export class AuthService {
                 showConfirmButton: false
             });
             this.user.set({id: data.user.id, email: data.user.email ?? ''});
+            await this.cargarIsAdmin(data.user.id);
             return true;
         }
         return false;

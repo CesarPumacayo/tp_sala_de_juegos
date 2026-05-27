@@ -164,6 +164,9 @@ También se implementaron:
 Guards de rutas
 Navegación protegida, Componentes standalone, Signals y Computed para manejo reactivo del estado , Integración completa entre frontend y backend con Angular + Supabase
 
+## Sprint #5
+Incorporación de una **encuesta** con validaciones (nombre, apellido, edad entre 18 y 99 años, teléfono solo números máximo 10 dígitos, 3 preguntas con distintos controles: textbox, radiobutton y select). Respuestas guardadas en la base de datos identificando al usuario. Sección de **resultados de encuestas** visible únicamente para usuarios administradores mediante guard. **Animaciones de transición** entre componentes con fade + slide.
+
 # SalaJuegos
 
 This project was generated using Angular CLI version 21.2.7.

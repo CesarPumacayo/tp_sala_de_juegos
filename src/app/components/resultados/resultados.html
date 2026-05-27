@@ -1,170 +1,175 @@
 <nav>
     <button routerLink="/bienvenida">Ir atrás</button>
 </nav>
+
 <div class="container py-5">
-    <h1 class="text-center text-light mb-5">
-        🏆 Resultados
-    </h1>
-    <!-- AHORCADO -->
-    <div class="card bg-dark text-light mb-5 shadow">
-        <div class="card-header">
-            <h2 class="mb-0">🎯 Ahorcado</h2>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-dark table-hover align-middle mb-0">
-                <thead class="table-secondary text-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Jugador</th>
-                        <th>Puntaje</th>
-                        <th>Errores</th>
-                        <th>Tiempo</th>
-                        <th>Ganó</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for(resultado of resultadosAhorcado(); track resultado.id; let i = $index) {
-                        <tr>
-                            <td>{{ i + 1 }}</td>
-                            <td>
-                                <i class="bi bi-person-circle"></i>
-                                {{ resultado.user_email }}
-                            </td>
-                            <td class="text-success fw-bold">
-                                ⭐ {{ resultado.puntaje }}
-                            </td>
-                            <td class="text-danger">
-                                ❌ {{ resultado.errores }}
-                            </td>
-                            <td>
-                                ⏱️ {{resultado.tiempo_segundos}}
-                            </td>
-                            <td>
-                                @if(resultado.gano) {
-                                    <span class="badge bg-success">Sí</span>
-                                } @else {
-                                    <span class="badge bg-danger">No</span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <h1 class="text-center text-light mb-4">🏆 Resultados</h1>
+
+    <input 
+        type="text" 
+        [(ngModel)]="filtroEmail" 
+        placeholder="🔍 Buscar por email..."
+        class="form-control mb-4 bg-dark text-light border-secondary"
+    >
+
+    <!-- TABS -->
+    <div class="d-flex gap-2 mb-4 flex-wrap">
+        <button class="btn" 
+            [class.btn-primary]="tabActiva() === 'ahorcado'"
+            [class.btn-outline-primary]="tabActiva() !== 'ahorcado'"
+            (click)="tabActiva.set('ahorcado')">
+            🎯 Ahorcado
+        </button>
+        <button class="btn"
+            [class.btn-success]="tabActiva() === 'mayor-menor'"
+            [class.btn-outline-success]="tabActiva() !== 'mayor-menor'"
+            (click)="tabActiva.set('mayor-menor')">
+            🃏 Mayor o Menor
+        </button>
+        <button class="btn"
+            [class.btn-warning]="tabActiva() === 'preguntados'"
+            [class.btn-outline-warning]="tabActiva() !== 'preguntados'"
+            (click)="tabActiva.set('preguntados')">
+            🤔 Preguntados
+        </button>
+        <button class="btn"
+            [class.btn-danger]="tabActiva() === 'juego-propio'"
+            [class.btn-outline-danger]="tabActiva() !== 'juego-propio'"
+            (click)="tabActiva.set('juego-propio')">
+            😈 Atrapa al Emoji
+        </button>
     </div>
+
+    <!-- AHORCADO -->
+    @if(tabActiva() === 'ahorcado') {
+        <div class="card bg-dark text-light shadow">
+            <div class="card-header"><h2 class="mb-0">🎯 Ahorcado</h2></div>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0">
+                    <thead class="table-secondary text-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Jugador</th>
+                            <th>Puntaje</th>
+                            <th>Errores</th>
+                            <th>Tiempo</th>
+                            <th>Ganó</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(resultado of resultadosAhorcado() | filtro:filtroEmail:'user_email'; track resultado.id; let i = $index) {
+                            <tr>
+                                <td>{{ i + 1 }}</td>
+                                <td><i class="bi bi-person-circle"></i> {{ resultado.user_email }}</td>
+                                <td class="text-success fw-bold">⭐ {{ resultado.puntaje }}</td>
+                                <td class="text-danger">❌ {{ resultado.errores }}</td>
+                                <td>⏱️ {{ resultado.tiempo_segundos }}s</td>
+                                <td>
+                                    @if(resultado.gano) {
+                                        <span class="badge bg-success">Sí</span>
+                                    } @else {
+                                        <span class="badge bg-danger">No</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 
     <!-- MAYOR O MENOR -->
-    <div class="card bg-dark text-light mb-5 shadow">
-        <div class="card-header">
-            <h2 class="mb-0">🃏 Mayor o Menor</h2>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-dark table-hover align-middle mb-0">
-                <thead class="table-secondary text-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Jugador</th>
-                        <th>Aciertos</th>
-                        <th>Errores</th>
-                        <th>Tiempo</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for(resultado of resultadosMayorMenor(); track resultado.id; let i = $index) {
+    @if(tabActiva() === 'mayor-menor') {
+        <div class="card bg-dark text-light shadow">
+            <div class="card-header"><h2 class="mb-0">🃏 Mayor o Menor</h2></div>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0">
+                    <thead class="table-secondary text-dark">
                         <tr>
-                            <td>{{ i + 1 }}</td>
-                            <td>
-                                <i class="bi bi-person-circle"></i>
-                                {{ resultado.user_email }}
-                            </td>
-                            <td class="text-success fw-bold">
-                                ✅ {{ resultado.aciertos }}
-                            </td>
-                            <td class="text-danger">
-                                ❌ {{ resultado.errores }}
-                            </td>
-                            <td>
-                                ⏱️ {{ resultado.tiempo_segundos }}s
-                            </td>
-                            <td>
-                                {{ resultado.created_at | date:'short' }}
-                            </td>
+                            <th>#</th>
+                            <th>Jugador</th>
+                            <th>Puntaje</th>
+                            <th>Aciertos</th>
+                            <th>Errores</th>
+                            <th>Tiempo</th>
+                            <th>Fecha</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @for(resultado of resultadosMayorMenor() | filtro:filtroEmail:'user_email'; track resultado.id; let i = $index) {
+                            <tr>
+                                <td>{{ i + 1 }}</td>
+                                <td><i class="bi bi-person-circle"></i> {{ resultado.user_email }}</td>
+                                <td class="text-warning fw-bold">⭐ {{ resultado.puntaje }}</td>
+                                <td class="text-success fw-bold">✅ {{ resultado.aciertos }}</td>
+                                <td class="text-danger">❌ {{ resultado.errores }}</td>
+                                <td>⏱️ {{ resultado.tiempo_segundos }}s</td>
+                                <td>{{ resultado.created_at | date:'short' }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    }
+
     <!-- PREGUNTADOS -->
-    <div class="card bg-dark text-light shadow">
-        <div class="card-header">
-            <h2 class="mb-0">🤔 Preguntados</h2>
-        </div>
-        <table class="table table-dark table-hover align-middle mb-0">
-            <thead class="table-secondary text-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Jugador</th>
-                    <th>Puntaje</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(resultado of resultadosPreguntados(); track resultado.id; let i = $index) {
-                    <tr>
-                        <td>{{ i + 1 }}</td>
-                        <td>
-                            <i class="bi bi-person-circle"></i>
-                            {{ resultado.user_email }}
-                        </td>
-                        <td class="text-warning fw-bold">
-                            ⭐ {{ resultado.puntaje }}
-                        </td>
-                        <td>
-                            {{ resultado.created_at | date:'short' }}
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-    </div>
-    <!-- JUEGO PROPIO -->
-    <div class="card bg-dark text-light shadow">
-        <div class="card-header">
-            <h2 class="mb-0">😈 Atrapa al Emoji</h2>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-dark table-hover align-middle mb-0">
-                <thead class="table-secondary text-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Jugador</th>
-                        <th>Puntos</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @for(resultado of resultadosJuegoPropio(); track resultado.id; let i = $index) {
-
+    @if(tabActiva() === 'preguntados') {
+        <div class="card bg-dark text-light shadow">
+            <div class="card-header"><h2 class="mb-0">🤔 Preguntados</h2></div>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0">
+                    <thead class="table-secondary text-dark">
                         <tr>
-                            <td>{{ i + 1 }}</td>
-                            <td>
-                                <i class="bi bi-person-circle"></i>
-                                {{ resultado.user_email }}
-                            </td>
-                            <td class="text-warning fw-bold">
-                                ⭐ {{ resultado.puntos }}
-                            </td>
-                            <td>
-                                {{ resultado.created_at | date:'short' }}
-                            </td>
+                            <th>#</th>
+                            <th>Jugador</th>
+                            <th>Puntaje</th>
+                            <th>Fecha</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @for(resultado of resultadosPreguntados() | filtro:filtroEmail:'user_email'; track resultado.id; let i = $index) {
+                            <tr>
+                                <td>{{ i + 1 }}</td>
+                                <td><i class="bi bi-person-circle"></i> {{ resultado.user_email }}</td>
+                                <td class="text-warning fw-bold">⭐ {{ resultado.puntaje }}</td>
+                                <td>{{ resultado.created_at | date:'short' }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    }
+
+    <!-- JUEGO PROPIO -->
+    @if(tabActiva() === 'juego-propio') {
+        <div class="card bg-dark text-light shadow">
+            <div class="card-header"><h2 class="mb-0">😈 Atrapa al Emoji</h2></div>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0">
+                    <thead class="table-secondary text-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Jugador</th>
+                            <th>Puntos</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(resultado of resultadosJuegoPropio() | filtro:filtroEmail:'user_email'; track resultado.id; let i = $index) {
+                            <tr>
+                                <td>{{ i + 1 }}</td>
+                                <td><i class="bi bi-person-circle"></i> {{ resultado.user_email }}</td>
+                                <td class="text-warning fw-bold">⭐ {{ resultado.puntos }}</td>
+                                <td>{{ resultado.created_at | date:'short' }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
 </div>

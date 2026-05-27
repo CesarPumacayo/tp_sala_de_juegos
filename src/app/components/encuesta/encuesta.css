@@ -1,0 +1,139 @@
+.encuesta-container {
+    max-width: 650px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    color: white;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.seccion {
+    background-color: #1c1c1e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.seccion h2 {
+    font-size: 1.2rem;
+    color: #f0c040;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.campo {
+    margin-bottom: 1.2rem;
+}
+
+.campo label {
+    display: block;
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+}
+
+.campo input[type="text"],
+.campo input[type="number"],
+.campo select {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #2c2c2e;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus {
+    border-color: #f0c040;
+}
+
+.campo input::placeholder {
+    color: #666;
+}
+
+.campo select option {
+    background-color: #2c2c2e;
+    color: white;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+    accent-color: #f0c040;
+    width: 16px;
+    height: 16px;
+}
+
+.error {
+    display: block;
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #f0c040;
+    color: #0f0f0f;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button[type="submit"]:hover:not([disabled]) {
+    background-color: #d4a800;
+    transform: scale(1.02);
+}
+
+button[type="submit"][disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+nav {
+    padding: 15px 20px;
+}
+
+nav button {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #2c2c2e;
+    color: white;
+    transition: 0.2s;
+}
+
+nav button:hover {
+    background-color: #444;
+    transform: scale(1.05);
+}
